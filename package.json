@@ -32,7 +32,9 @@
     "adonis-bumblebee": "^2.2.0",
     "mysql": "^2.18.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "prettier": "2.2.0"
+  },
   "autoload": {
     "App": "./app"
   }

@@ -4,18 +4,18 @@
 const Schema = use('Schema')
 
 class UserImageFkSchema extends Schema {
-  up () {
+  up() {
     this.table('users', table => {
       table
-      .foreign('image_id')
-      .references('id')
-      .inTable('images')
-      .onDelete('cascade')
-      .onUpdate('cascade')
+        .foreign('image_id')
+        .references('id')
+        .inTable('images')
+        .onDelete('cascade')
+        .onUpdate('cascade')
     })
   }
 
-  down () {
+  down() {
     this.table('users', table => {
       table.dropForeign('image_id')
     })

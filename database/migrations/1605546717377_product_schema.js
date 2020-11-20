@@ -4,14 +4,19 @@
 const Schema = use('Schema')
 
 class ProductSchema extends Schema {
-  up () {
-    this.create('products', (table) => {
+  up() {
+    this.create('products', table => {
       table.increments()
       table.string('name', 200)
       table.integer('image_id').unsigned()
       table.text('description')
       table.decimal('price', 12, 2)
-      table.foreign('image_id').references('id').inTable('images').onDelete('cascade').onUpdate('cascade')
+      table
+        .foreign('image_id')
+        .references('id')
+        .inTable('images')
+        .onDelete('cascade')
+        .onUpdate('cascade')
       table.timestamps()
     })
 
@@ -19,20 +24,40 @@ class ProductSchema extends Schema {
       table.increments()
       table.integer('image_id').unsigned()
       table.integer('product_id').unsigned()
-      table.foreign('image_id').references('id').inTable('images').onDelete('cascade').onUpdate('cascade')
-      table.foreign('product_id').references('id').inTable('products').onDelete('cascade').onUpdate('cascade')
+      table
+        .foreign('image_id')
+        .references('id')
+        .inTable('images')
+        .onDelete('cascade')
+        .onUpdate('cascade')
+      table
+        .foreign('product_id')
+        .references('id')
+        .inTable('products')
+        .onDelete('cascade')
+        .onUpdate('cascade')
     })
 
     this.create('category_product', table => {
       table.increments()
       table.integer('category_id').unsigned()
       table.integer('product_id').unsigned()
-      table.foreign('category_id').references('id').inTable('categories').onDelete('cascade').onUpdate('cascade')
-      table.foreign('product_id').references('id').inTable('products').onDelete('cascade').onUpdate('cascade')
+      table
+        .foreign('category_id')
+        .references('id')
+        .inTable('categories')
+        .onDelete('cascade')
+        .onUpdate('cascade')
+      table
+        .foreign('product_id')
+        .references('id')
+        .inTable('products')
+        .onDelete('cascade')
+        .onUpdate('cascade')
     })
   }
 
-  down () {
+  down() {
     this.drop('category_product')
     this.drop('image_product')
     this.drop('products')
