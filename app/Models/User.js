@@ -21,6 +21,11 @@ class User extends Model {
     })
   }
 
+  //oculta os campos no retorno de uma instância
+  static get hidden() {
+    return ['password']
+  }
+
   static get traits() {
     return [
       '@provider:Adonis/Acl/HasRole',
@@ -40,6 +45,10 @@ class User extends Model {
    */
   tokens() {
     return this.hasMany('App/Models/Token')
+  }
+
+  image() {
+    return this.belongsTo('App/Models/Image')
   }
 }
 
