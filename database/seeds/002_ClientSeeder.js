@@ -17,13 +17,12 @@ const User = use('App/Models/User')
 
 class ClientSeeder {
   async run() {
-    const role = await Role.findby('slug', 'client')
-    const factory_users = await Factory.model('App/Models/User').createMany(20)
-    await Promisse.all(
-      factory_users.map(async client => {
-        await client.roles().attach([role.id])
-      })
-    )
+    const role = await Role.findBy('slug', 'client')
+    const factory_users = await Factory.model('App/Models/User').createMany(10)
+
+    factory_users.map(async client => {
+      await client.roles().attach([role.id])
+    })
 
     const user = await User.create({
       name: 'Anderson',
@@ -32,7 +31,7 @@ class ClientSeeder {
       password: 'secret',
     })
 
-    const adminRole = await Role.findby('slug', 'admin')
+    const adminRole = await Role.findBy('slug', 'admin')
     await user.roles().attach([adminRole.id])
   }
 }
