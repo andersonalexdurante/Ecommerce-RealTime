@@ -20,6 +20,7 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
+//rotas de autenticação
 Route.group(() => {
   Route.post('/register', 'AuthController.register').as('auth.register')
   Route.post('/login', 'AuthController.login').as('auth.login')
@@ -35,6 +36,7 @@ Route.group(() => {
   .prefix('v1/auth')
   .namespace('Auth')
 
+//rotas de admin
 Route.group(() => {
   Route.resource('/categories', 'CategoryController').apiOnly()
   Route.resource('/products', 'ProductController').apiOnly()
@@ -45,3 +47,16 @@ Route.group(() => {
 })
   .prefix('v1/admin')
   .namespace('Admin')
+
+//rotas de clientes
+Route.group(() => {
+  Route.get('/products', 'ProductController.index')
+  Route.get('/products/:id', 'ProductController.show')
+
+  Route.get('/orders', 'OrderController.index')
+  Route.post('/orders', 'OrderController.store')
+  Route.get('/orders/:id', 'OrderController.show')
+  Route.put('/orders/:id', 'OrderController.put')
+})
+  .prefix('v1')
+  .namespace('Client')
