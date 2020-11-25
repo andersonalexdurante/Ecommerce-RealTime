@@ -34,3 +34,14 @@ Route.group(() => {
 })
   .prefix('v1/auth')
   .namespace('Auth')
+
+Route.group(() => {
+  Route.resource('/categories', 'CategoryController').apiOnly()
+  Route.resource('/products', 'ProductController').apiOnly()
+  Route.resource('/images', 'ImageController').apiOnly()
+  Route.resource('/users', 'UserController').apiOnly()
+  Route.resource('/orders', 'OrderController').apiOnly()
+  Route.resource('/coupons', 'CouponController').apiOnly()
+})
+  .prefix('v1/admin')
+  .namespace('Admin')
