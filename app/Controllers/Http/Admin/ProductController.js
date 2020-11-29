@@ -11,7 +11,7 @@ class ProductController {
     //listagem
     const name = request.input('name')
     const query = Product.query()
-    if (title) {
+    if (name) {
       query.where('name', 'LIKE', `%${name}%`)
     }
 
@@ -54,7 +54,7 @@ class ProductController {
     }
   }
 
-  async destroy({ params: { id }, request, response }) {
+  async destroy({ params: { id }, response }) {
     const product = await Product.findOrFail(id)
     try {
       await product.delete()
