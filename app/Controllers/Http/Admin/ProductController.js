@@ -20,7 +20,22 @@ class ProductController {
     return response.send(products)
   }
 
-  async store({ request, response }) {}
+  async store({ request, response }) {
+    try {
+      const { name, description, price, image_id } = request.all()
+      const product = await Product.create({
+        name,
+        description,
+        price,
+        image_id,
+      })
+      return response.status(201).send({ data: product })
+    } catch (error) {
+      return response
+        .status(400)
+        .send({ message: 'Erro ao processar a solicitação' })
+    }
+  }
 
   async show({ params, request, response, view }) {}
 
