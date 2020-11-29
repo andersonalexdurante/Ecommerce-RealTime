@@ -39,7 +39,17 @@ class ProductController {
 
   async show({ params, request, response, view }) {}
 
-  async update({ params, request, response }) {}
+  async update({ params: { id }, request, response }) {
+    const product = await Product.findOrFail(id)
+    try {
+      const { name, description, price, image_id } = request.all()
+      await product.merge({ name, description, price, image_id })
+      await product.save()
+      return response.send({ data: product })
+    } catch (error) {
+      return response.status(400).send({ message: 'Erro ao atualizar produto' })
+    }
+  }
 
   async destroy({ params, request, response }) {}
 }
