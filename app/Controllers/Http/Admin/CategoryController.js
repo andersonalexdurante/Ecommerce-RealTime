@@ -7,7 +7,7 @@
 const Category = use('App/Models/Category')
 
 class CategoryController {
-  async index({ request, response, view, pagination }) {
+  async index({ request, response, pagination }) {
     //listagem
     const title = request.input('title')
     const query = Category.query()
@@ -36,7 +36,7 @@ class CategoryController {
     }
   }
 
-  async show({ params: { id }, request, response, view }) {
+  async show({ params: { id }, response }) {
     const category = await Category.findOrFail(id)
     return response.send(category)
   }
@@ -49,7 +49,7 @@ class CategoryController {
     return response.send({ data: category })
   }
 
-  async destroy({ params: { id }, request, response }) {
+  async destroy({ params: { id }, response }) {
     const category = await Category.findOrFail(id)
     await category.delete()
     return response.status(204).send()
