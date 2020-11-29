@@ -36,11 +36,18 @@ class CategoryController {
     }
   }
 
-  async show({ params, request, response, view }) {}
+  async show({ params: { id }, request, response, view }) {
+    const category = await Category.findOrFail(id)
+    return response.send(category)
+  }
 
   async update({ params, request, response }) {}
 
-  async destroy({ params, request, response }) {}
+  async destroy({ params: { id }, request, response }) {
+    const category = await Category.findOrFail(id)
+    await category.delete()
+    return response.status(204).send()
+  }
 }
 
 module.exports = CategoryController
