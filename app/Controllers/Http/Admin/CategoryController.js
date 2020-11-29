@@ -41,7 +41,13 @@ class CategoryController {
     return response.send(category)
   }
 
-  async update({ params, request, response }) {}
+  async update({ params: { id }, request, response }) {
+    const category = await Category.findOrFail(id)
+    const { title, description, image_id } = request.all()
+    await category.merge({ title, description, image_id })
+    await category.save()
+    return response.send({ data: category })
+  }
 
   async destroy({ params: { id }, request, response }) {
     const category = await Category.findOrFail(id)
